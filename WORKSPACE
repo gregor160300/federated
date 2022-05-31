@@ -3,6 +3,14 @@ workspace(name = "org_tensorflow_federated")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
+    name = "build_bazel_rules_apple",
+    sha256 = "0052d452af7742c8f3a4e0929763388a66403de363775db7e90adecb2ba4944b",
+    urls = [
+        "https://github.com/bazelbuild/rules_apple/releases/download/0.31.3/rules_apple.0.31.3.tar.gz",
+    ],
+)
+
+http_archive(
     name = "com_google_protobuf",
     sha256 = "39c7a5e7e557b24fc324bec3a73054d277ed9b9b320b273564e04f862131e679",
     strip_prefix = "protobuf-3.10.1",
