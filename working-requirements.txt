@@ -76,7 +76,7 @@ tensorflow-hub==0.12.0
 tensorflow-io-gcs-filesystem==0.26.0
 tensorflow-metadata==1.8.0
 tensorflow-model-optimization==0.7.2
-tensorflow-privacy==0.6.0
+tensorflow-privacy==0.5.1
 tensorflow-probability==0.15.0
 termcolor==1.1.0
 tf-estimator-nightly==2.10.0.dev2022052708
