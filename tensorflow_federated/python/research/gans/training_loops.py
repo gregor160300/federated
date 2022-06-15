@@ -204,7 +204,8 @@ def federated_training_loop(gan: tff_gans.GanFnsAndTypes,
                             rounds_per_eval=1,
                             eval_hook=lambda *args: None,
                             rounds_per_checkpoint=5,
-                            root_checkpoint_dir=None):
+                            root_checkpoint_dir=None,
+                            autoencoder=None):
   """A simple federated training loop.
 
   Args:
@@ -250,9 +251,9 @@ def federated_training_loop(gan: tff_gans.GanFnsAndTypes,
     eval_generator.set_weights(server_state.generator_weights)
     eval_discriminator.set_weights(server_state.discriminator_weights)
 
-  def do_eval(round_num, server_state):
+  def do_eval(round_num, server_state, autoencoder):
     update_eval_models(server_state)
-    eval_hook(eval_generator, eval_discriminator, server_state, round_num)
+    eval_hook(eval_generator, eval_discriminator, server_state, round_num, autoencoder)
     elapsed_minutes = (time.time() - start_time) / 60
     elapsed_rounds = round_num - start_round_num
     print(
@@ -265,9 +266,10 @@ def federated_training_loop(gan: tff_gans.GanFnsAndTypes,
   logging.info('Starting training.')
   while round_num < total_rounds:
     if round_num % rounds_per_eval == 0:
-      do_eval(round_num, server_state)
+      do_eval(round_num, server_state, autoencoder)
 
     client_gen_inputs, client_real_inputs = zip(*client_datasets_fn(round_num))
+      
     # TODO(b/123092620): The following conversion (from anon tuple to
     # ServerState) should not be needed.
     server_state = gan_training_tf_fns.ServerState.from_anon_tuple(
@@ -279,5 +281,5 @@ def federated_training_loop(gan: tff_gans.GanFnsAndTypes,
       write_checkpoint(root_checkpoint_dir, server_state, round_num)
 
   train_time = time.time() - start_time
-  do_eval(total_rounds, server_state)
+  do_eval(total_rounds, server_state, autoencoder)
   return server_state, train_time

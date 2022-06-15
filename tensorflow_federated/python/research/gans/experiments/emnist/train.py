@@ -14,20 +14,26 @@
 # limitations under the License.
 """Train DP Federated GAN to synthesize images resembling EMNIST data."""
 
+from base64 import encode
 import collections
+from enum import auto
 import functools
 import os.path
+from re import A
 import time
+from turtle import shape
 
 from absl import app
 from absl import flags
 from absl import logging
+from matplotlib.pyplot import axis
 import numpy as np
 from PIL import Image
 import tensorflow as tf
 import tensorflow_federated as tff
 import tensorflow_gan as tfgan
 import tensorflow_privacy
+import tensorflow_datasets as tfds
 import tree
 
 from tensorboard.plugins.hparams import api as hp
@@ -41,6 +47,9 @@ from tensorflow_federated.python.research.gans.experiments.emnist.eval import em
 from tensorflow_federated.python.research.gans.experiments.emnist.models import convolutional_gan_networks as networks
 from tensorflow_federated.python.research.gans.experiments.emnist.preprocessing import filtered_emnist_data_utils as fedu
 from tensorflow_federated.python.research.utils import utils_impl
+from tensorflow.keras import layers, losses
+from tensorflow.keras.models import Model
+
 
 with utils_impl.record_new_flags() as hparam_flags:
   # Metadata.
@@ -149,6 +158,23 @@ FLAGS = flags.FLAGS
 CLIENT_TRAIN_BATCH_SIZE = 32
 EVAL_BATCH_SIZE = 500
 
+class Denoise(Model):
+  def __init__(self):
+    super(Denoise, self).__init__()
+    self.encoder = tf.keras.Sequential([
+      layers.Input(shape=(28, 28, 1)),
+      layers.Conv2D(16, (3, 3), activation='relu', padding='same', strides=2),
+      layers.Conv2D(8, (3, 3), activation='relu', padding='same', strides=2)])
+
+    self.decoder = tf.keras.Sequential([
+      layers.Conv2DTranspose(8, kernel_size=3, strides=2, activation='relu', padding='same'),
+      layers.Conv2DTranspose(16, kernel_size=3, strides=2, activation='relu', padding='same'),
+      layers.Conv2D(1, kernel_size=(3, 3), activation='sigmoid', padding='same')])
+
+  def call(self, x):
+    encoded = self.encoder(x)
+    decoded = self.decoder(encoded)
+    return decoded
 
 def _create_gen_inputs_dataset(batch_size, noise_dim, seed=None):
   """Returns a `tf.data.Dataset` of generator random inputs."""
@@ -180,13 +206,28 @@ def _get_gan_network_models(noise_dim):
   return disc_model_fn, gen_model_fn
 
 
-def _save_images(generator, gen_inputs, outdir, file_prefix):
+def _save_images(generator, gen_inputs, outdir, file_prefix, autoencoder):
   """Saves images from `generator`."""
   gen_images = generator(gen_inputs, training=False)
   generated_results = np.array([
       np.reshape(gen_image.numpy(), (28, 28, 1))
       for gen_image in tf.unstack(gen_images, axis=0)[:36]
   ])
+
+#   decoded_imgs = np.empty(generated_results.shape)
+  encoded_imgs = autoencoder.encoder(generated_results).numpy()
+  generated_results = autoencoder.decoder(encoded_imgs).numpy()
+#   for i, element in enumerate(generated_results):
+#     print("element shape: ", element.shape)
+#     encoded_imgs = autoencoder.encoder(element).numpy()
+#     autoencoder.encoder.summary()
+#     print("encoded shape: ", encoded_imgs.shape)
+#     dec = autoencoder.decoder(encoded_imgs).numpy()
+#     autoencoder.decoder.summary()
+#     print("decoded shape: ", dec.shape)
+#     decoded_imgs[i] = dec
+
+#   generated_results = decoded_imgs
 
   tiled_image = tfgan.eval.python_image_grid(
       generated_results, grid_shape=(6, 6))
@@ -203,9 +244,19 @@ def _save_images(generator, gen_inputs, outdir, file_prefix):
 
 
 def _compute_eval_metrics(generator, discriminator, gen_inputs, real_images,
-                          gan_loss_fns, emnist_classifier):
+                          gan_loss_fns, emnist_classifier, autoencoder):
   """Computes eval metrics for the GAN."""
   gen_images = generator(gen_inputs, training=False)
+  print('gen_images: ', gen_images)
+  generated_results = np.array([
+      np.reshape(gen_image.numpy(), (28, 28, 1))
+      for gen_image in tf.unstack(gen_images, axis=0)
+  ])
+
+  encoded_imgs = autoencoder.encoder(generated_results).numpy()
+  generated_results = autoencoder.decoder(encoded_imgs).numpy()
+  gen_images = tf.convert_to_tensor(generated_results)
+
   disc_on_real_images = discriminator(real_images, training=False)
   disc_on_gen_outputs = discriminator(gen_images, training=False)
   real_data_logits = tf.reduce_mean(disc_on_real_images)
@@ -259,7 +310,7 @@ def _get_emnist_eval_hook_fn(exp_name, output_dir, hparams_dict, gan_loss_fns,
   with summary_writer.as_default():
     hp.hparams(hparams_dict)
 
-  def eval_hook(generator, discriminator, server_state, round_num):
+  def eval_hook(generator, discriminator, server_state, round_num, autoencoder):
     """Called during TFF GAN IterativeProcess, to compute eval metrics."""
     start_time = time.time()
     metrics = {}
@@ -272,12 +323,13 @@ def _get_emnist_eval_hook_fn(exp_name, output_dir, hparams_dict, gan_loss_fns,
           generator,
           gen_inputs,
           outdir=path_to_output_images,
-          file_prefix='emnist_tff_gen_images_step_{:05d}'.format(round_num))
+          file_prefix='emnist_tff_gen_images_step_{:05d}'.format(round_num),
+          autoencoder=autoencoder)
 
     # Compute eval metrics.
     eval_metrics = _compute_eval_metrics(generator, discriminator, gen_inputs,
                                          real_images, gan_loss_fns,
-                                         emnist_classifier_for_metrics)
+                                         emnist_classifier_for_metrics, autoencoder)
     metrics['eval'] = eval_metrics
 
     # Get counters from the server_state.
@@ -340,7 +392,7 @@ def _train(gan, server_gen_inputs_dataset, client_gen_inputs_dataset,
            client_real_images_tff_data, client_disc_train_steps,
            server_gen_train_steps, clients_per_round, total_rounds,
            rounds_per_eval, eval_hook_fn, rounds_per_checkpoint, output_dir,
-           exp_name):
+           exp_name, autoencoder):
   """Trains the federated GAN."""
   server_gen_inputs_iterator = iter(
       server_gen_inputs_dataset.window(server_gen_train_steps))
@@ -374,7 +426,8 @@ def _train(gan, server_gen_inputs_dataset, client_gen_inputs_dataset,
       eval_hook=eval_hook_fn,
       rounds_per_checkpoint=rounds_per_checkpoint,
       root_checkpoint_dir=os.path.join(output_dir,
-                                       'checkpoints/{}'.format(exp_name)))
+                                       'checkpoints/{}'.format(exp_name)),
+      autoencoder=autoencoder)
 
 
 def _get_path_to_output_image(root_output_dir, exp_name):
@@ -382,6 +435,19 @@ def _get_path_to_output_image(root_output_dir, exp_name):
                                        'images/{}'.format(exp_name))
   return path_to_output_images
 
+def dataset_to_numpy(ds):
+    """
+    Convert tensorflow dataset to numpy arrays
+    """
+    images = []
+    labels = []
+
+    # Iterate over a dataset
+    for i, (image, label) in enumerate(tfds.as_numpy(ds)):
+        images.append(image)
+        labels.append(label)
+
+    return np.asarray(images), labels
 
 def main(argv):
   if len(argv) > 1:
@@ -457,6 +523,27 @@ def main(argv):
       gen_inputs_eval_dataset, real_images_eval_dataset,
       FLAGS.num_rounds_per_save_images, path_to_output_images, classifier_model)
 
+  # Train autoencoder
+  noise_factor = 0.2
+  ds = tfds.load('emnist/balanced', split='train', as_supervised=True)
+  x_train, _ = dataset_to_numpy(ds)
+
+  test_ds = tfds.load('emnist/balanced', split='test', as_supervised=True)
+  x_test, _ = dataset_to_numpy(test_ds)
+
+  x_train_noisy = x_train + noise_factor * tf.random.normal(shape=x_train.shape) 
+  x_test_noisy = x_test + noise_factor * tf.random.normal(shape=x_test.shape) 
+
+  x_train_noisy = tf.clip_by_value(x_train_noisy, clip_value_min=0., clip_value_max=1.)
+  x_test_noisy = tf.clip_by_value(x_test_noisy, clip_value_min=0., clip_value_max=1.)
+
+  autoencoder = Denoise()
+  autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
+  autoencoder.fit(x_train_noisy, x_train,
+                epochs=10,
+                shuffle=True,
+                validation_data=(x_test_noisy, x_test))
+
   # Form the GAN.
   gan = _get_gan(
       gen_model_fn,
@@ -485,7 +572,8 @@ def main(argv):
       eval_hook_fn,
       FLAGS.num_rounds_per_checkpoint,
       output_dir=FLAGS.root_output_dir,
-      exp_name=FLAGS.exp_name)
+      exp_name=FLAGS.exp_name,
+      autoencoder=autoencoder)
   logging.info('Total training time was %4.3f seconds.', tff_time)
 
   print('\nTRAINING COMPLETE.')
