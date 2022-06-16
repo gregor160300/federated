@@ -1,0 +1,23 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="pandas" />
+            <item index="1" class="java.lang.String" itemvalue="absl-py" />
+            <item index="2" class="java.lang.String" itemvalue="tensorflow-privacy" />
+            <item index="3" class="java.lang.String" itemvalue="tensorflow-model-optimization" />
+            <item index="4" class="java.lang.String" itemvalue="typing" />
+            <item index="5" class="java.lang.String" itemvalue="grpcio" />
+            <item index="6" class="java.lang.String" itemvalue="tfa-nightly" />
+            <item index="7" class="java.lang.String" itemvalue="enum34" />
+            <item index="8" class="java.lang.String" itemvalue="tf-nightly" />
+            <item index="9" class="java.lang.String" itemvalue="attrs" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
