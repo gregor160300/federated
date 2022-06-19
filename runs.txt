@@ -1,0 +1,161 @@
+ 8391  bazel --help
+ 8392  dnf copr enable -y vbatts/bazel
+ 8393  sudo dnf copr enable -y vbatts/bazel
+ 8394  sudo dnf install -y bazel3
+ 8395  remove bazel3
+ 8396  sudo dnf install -y bazel5
+ 8397  bazel --help
+ 8399  bazel build
+ 8400  bazel build BUILD
+ 8403  bazel build experiments/emnist/classifier:measure_misclassification_of_users
+ 8404  bazel build experiments/emnist/classifier
+ 8405  cd gans & bazel build experiments/emnist/classifier:measure_misclassification_of_users
+ 8407  bazel build experiments/emnist/classifier
+ 8408  cd gans & bazel build experiments/emnist/classifier:measure_misclassification_of_users
+ 8409  bazel run experiments/emnist/classifier:measure_misclassification_of_users
+ 8410  bazel run experiments/emnist/classifier:train_emnist_classifier_model
+ 8429  bazel run experiments/emnist/classifier:measure_misclassification_of_users
+ 8431  bazel run experiments/emnist/classifier:measure_misclassification_of_users
+ 8432  bazel run experiments/emnist/preprocessing:filter_users
+ 8435  bazel run experiments/emnist/preprocessing:filter_examples
+ 8437  bazel run experiments/emnist:run_experiments
+ 8439  bazel run gans/experiments/emnist:run_experiments
+ 8525  bazel run gans/experiments/emnist:run_experiments
+ 8527  bazel run experiments/emnist:run_experiments
+ 8749  sudo dnf install bazel
+ 8750  sudo dnf copr enable vbatts/bazel
+ 8751  sudo dnf copr enable -y vbatts/bazel
+ 8752  sudo nano /etc/yum.repos.d/bazel.repo
+ 8755  sudo dnf install bazel4
+ 8757  cd gans && bazel run experiments/emnist:run_experiments
+ 8760  cd gans && bazel run experiments/emnist:run_experiments
+ 8761  bazel run experiments/emnist:run_experiments
+ 8763  bazel run experiments/emnist:run_experiments
+ 8766  bazel run experiments/emnist:run_experiments
+ 8768  bazel run gans/experiments/emnist:run_experiments
+ 8770  cd experiments && bazel run emnist:run_experiments
+ 8785  bazel run gans/experiments/emnist:run_experiments
+ 8791  bazel run gans/experiments/emnist:run_experiments
+ 8793  bazel run gans/experiments/emnist:run_experiments --help
+ 8795  bazel run gans/experiments/emnist:run_experiments --help
+ 8796  bazel run gans/experiments/emnist:run_experiments
+ 8797  bazel build
+ 8800  bazel run experiments/emnist:run_experiments
+ 8801  bazel run experiments/emnist/classifier:train_emnist_classifier_model
+ 8811  bazel run `experiments/emnist/classifier:emnist_classifier_model` library. The library\n
+ 8812  bazel run `experiments/emnist/classifier:measure_misclassification_of_users` script.\n
+ 8813  bazel run experiments/emnist/classifier:measure_misclassification_of_users
+ 8814  bazel run experiments/emnist:run_experiments
+ 8816  bazel --version
+ 8817  bazel run experiments/emnist:train
+ 8818  bazel run experiments/emnist:run_experiments
+ 8820  bazel run experiments/emnist:run_experiments
+ 8821  bazel run gans/experiments/emnist:run_experiments
+ 8823  bazel run gans/experiments/emnist:run_experiments
+ 8824  bazel run /emnist:run_experiments
+ 8825  bazel run emnist:run_experiments
+ 8827  bazel run emnist:run_experiments
+ 8829  bazel run emnist:run_experiments
+ 8837  bazel run run_experiments
+ 8838  bazel build experiments
+ 8839  bazel build experiments/emnist
+ 8841  bazel run experiments/emnist:run_experiments
+ 8843  bazel run gans/experiments/emnist:run_experiments
+ 8844  bazel clean --expunge
+ 8845  bazel clean --expunge_async
+ 8846  bazel run gans/experiments/emnist:run_experiments
+ 8847  bazel run gans/experiments/emnist:train {\n      'filtering': ['by_user'],\n      'invert_imagery_probability': ['0p0', '0p5'],\n      'accuracy_threshold': ['lt0p882', 'gt0p939'],\n      'num_client_disc_train_steps': [6],\n      'num_server_gen_train_steps': [6],\n      'num_clients_per_round': [10],\n      'num_rounds': [1000],\n      'use_dp': [True],\n      'dp_l2_norm_clip': [0.1],\n      'dp_noise_multiplier': [0.01],\n      'num_rounds_per_eval': [10],\n      'num_rounds_per_save_images': [10]\n  }
+ 8848  bazel run gans/experiments/emnist:train --filtering=by_user --invert_imagery_probability=['0p0', '0p5']
+ 8849  bazel run gans/experiments/emnist:train --filtering=by_user --invert_imagery_probability='0p0', '0p5'
+ 8850  bazel run gans/experiments/emnist:train --filtering=by_user
+ 8851  bazel run gans/experiments/emnist:train --filt=by_user
+ 8852  bazel run gans/experiments/emnist:train --filt=['by_user']
+ 8853  bazel run gans/experiments/emnist:train --filtering=['by_user']
+ 8854  sudo dnf remove bazel4
+ 8855  sudo dnf install bazel5
+ 8856  sudo dnf install bazel
+ 8857  sudo dnf install bazel --allowerasing
+ 8858  sudo dnf install -y --allowerasing bazel3
+ 8860  bazel run gans/experiments/emnist:run_experiments
+ 8861  bazel run experiments/emnist:run_experiments
+ 8862  sudo dnf install -y --allowerasing bazel
+ 8863  bazel run experiments/emnist:run_experiments
+ 8864  sudo dnf install -y --allowerasing bazel5
+ 8865  sudo dnf install -y --allowerasing bazel4
+ 8866  bazel run experiments/emnist:run_experiments
+ 9179  bazel run emnist_fedavg_main
+ 9180  sudo dnf install bazel
+ 9181  sudo dnf install bazel5
+ 9182  wget https://github.com/bazelbuild/bazel/releases/download/5.1.1/bazel-5.1.1-linux-x86_64
+ 9183  bazel run emnist_fedavg_main
+ 9184  remove bazel
+ 9185  remove bazel1
+ 9186  remove bazel-1.2.1-1.fc32.x86_64
+ 9187  which bazel
+ 9189  sudo mv bazel-5.1.1-linux-x86_64 /usr/bin/
+ 9190  bazel run emnist_fedavg_main
+ 9191  ls /usr/bin/bazel-5.1.1-linux-x86_64
+ 9192  chmod +x /usr/bin/bazel-5.1.1-linux-x86_64
+ 9193  bazel run emnist_fedavg_main
+ 9202  bazel run emnist_fedavg_main
+ 9204  bazel run emnist_fedavg_main
+ 9206  bazel run emnist_fedavg_main
+ 9226  bazel run emnist_fedavg_main
+ 9408  bazel
+ 9409  sudo dnf install bazel1
+ 9410  sudo dnf install bazel
+ 9411  sudo dnf install bazel --allowerasing
+ 9414  cd gans && bazel run experiments/emnist:run_experiments
+ 9417  cd gans && bazel run experiments/emnist:run_experiments
+ 9418  bazel run experiments/emnist:run_experiments
+ 9445  bazel --version
+ 9446  install bazel
+ 9447  sudo dnf copr enable -y vbatts/bazel
+ 9448  sudo nano /etc/yum.repos.d/bazel.repo
+ 9450  sudo rm /etc/yum.repos.d/bazel.repo
+ 9452  npm install -g @bazel/bazelisk
+ 9453  npm install -g @bazel/bazelisk --user
+ 9454  sudo npm install -g @bazel/bazelisk
+ 9460  bazel run experiments/emnist:run_experiments
+ 9462  bazel run experiments/emnist:run_experiments
+ 9464  bazel run experiments/emnist:run_experiments
+ 9466  bazel run experiments/emnist:run_experiments
+ 9468  bazel run experiments/emnist:run_experiments
+ 9470  bazel run experiments/emnist:run_experiments
+ 9472  bazel run gans/experiments/emnist:run_experiments
+ 9496  bazel run experiments/emnist:run_experiments
+ 9567  bazel
+ 9569  npm install -g @bazel/bazelisk
+ 9570  sudo npm install -g @bazel/bazelisk
+ 9576  bazel run experiments/emnist:run_experiments
+ 9578  bazel run experiments/emnist:run_experiments
+ 9707  bazel run //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9710  bazel run //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9718  bazel shutdown
+ 9719  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9720  bazel shutdown
+ 9721  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9723  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9726  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filt='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9727  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filtering='by_user' --inv_lik='0p0' --acc='lt0p882' --n_disc=6 --n_gen=6 --dp_clip=0.1 --dp_noise=0.01 --n_rds_eval=10 --n_rds_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9728  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/federate/output --exp_name=first_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='lt0p882' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9737  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=first_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='lt0p882' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9839  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=first_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='lt0p882' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9843  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=first_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='lt0p882' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9846  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=first_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='lt0p882' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=100
+ 9847  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=second_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000
+ 9850  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=third_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000
+ 9853  bazel --version
+ 9878  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=fourth_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True
+ 9880  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --exp_name=fourth_run --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True
+ 9942  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --exp_name=test --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test0
+ 9975  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test1
+ 9977  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test1
+ 9978  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test2
+ 9980  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test2
+ 9989  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test2
+ 9991  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test2
+ 9992  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=10 --use_dp=True --exp_name=test3
+ 9993  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True --exp_name=gregor_run_1
+ 9995  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True --exp_name=gregor_run_2
+ 9999  bazel run --sandbox_writable_path=/home/gregor/.cache/ccache --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir=/home/gregor/Documents/federated/output --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True --exp_name=gregor_run_2
