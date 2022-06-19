@@ -1,3 +1,31 @@
+# Using autoencoders on differentially private federated learning GANs
+
+This repository contains the code required to reproduce the findings in the paper "Using autoencoders on differentially private federated
+learning GANs" that was written as part of the [CSE3000 Research Project of TU Delft](https://github.com/TU-Delft-CSE/Research-Project) in quarter 4 of the academic calendar year 2021-2022. 
+
+Below are some instructions to be able to reproduce the results in the paper, these instructions work under the assumption that [conda](https://docs.conda.io/en/latest/) and [bazelisk](https://github.com/bazelbuild/bazelisk) are installed and in your path and you are in the root of this repository.
+
+1. Create a conda environment with Python 3.8 (skip this step on consequent runs)
+```
+conda create --name py3.8 python=3.8
+```
+2. Activate the conda environment 
+```
+conda activate py3.8
+```
+3. Install the required packages (skip this step on consequent runs)
+```
+pip install --upgrade pip
+pip install -r working-requirements.txt
+```
+4. Run the experiment with the hyperparameters from the paper. Modify the paths and exp_name before running.
+```
+bazel run --sandbox_writable_path={path_to_ccache_dir} --strategy=CppCompile=standalone //tensorflow_federated/python/research/gans/experiments/emnist:train -- --root_output_dir={path_to_output_folder} --filtering='by_user' --invert_imagery_probability='0p0' --accuracy_threshold='gt0p939' --num_client_disc_train_steps=6 --num_server_gen_train_steps=6 --dp_l2_norm_clip=0.1 --dp_noise_multiplier=0.01 --num_rounds_per_eval=10 --num_rounds_per_save_images=10 --num_clients_per_round=10 --num_rounds=1000 --use_dp=True --exp_name={experiment_name}
+```
+
+The code in this repository has been forked and modified from has been modified from the [TensorFlow Federated repository](https://github.com/tensorflow/federated), the original README starts below.
+
+---
 # TensorFlow Federated
 
 TensorFlow Federated (TFF) is an open-source framework for machine learning and
